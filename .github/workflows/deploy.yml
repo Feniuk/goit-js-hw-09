@@ -1,4 +1,4 @@
-name: Build and deploy to GitHub Pages
+name: goit-js-hw-09
 
 on:
   push:
