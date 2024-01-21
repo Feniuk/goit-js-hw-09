@@ -1,5 +1,5 @@
-import SimpleLightbox from "simplelightbox/dist/simple-lightbox.esm";
-import "simplelightbox/dist/simple-lightbox.min.css";
+import SimpleLightbox from 'simplelightbox/dist/simple-lightbox.esm';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const images = [
   {
@@ -78,15 +78,16 @@ const images = [
 
 const container = document.querySelector('.gallery');
 
-function imagesTemplate(){
-  const markup = images.map(el =>{
-    return `<li class="gallery-item">
+function imagesTemplate() {
+  const markup = images
+    .map(el => {
+      return `<li class="gallery-item">
     <a class="gallery-link" href="${el.original}">
       <img class="gallery-image" src="${el.preview}" alt="${el.description}" width="360" height="200"/>
     </a>
   </li>`;
-  })
-  .join('\n');
+    })
+    .join('\n');
 
   return markup;
 }
@@ -94,4 +95,7 @@ function imagesTemplate(){
 const markup = imagesTemplate();
 container.insertAdjacentHTML('afterbegin', markup);
 
-let gallery = new SimpleLightbox('.gallery a', {captionDelay: 250, captionsData: 'alt'});
+let gallery = new SimpleLightbox('.gallery a', {
+  captionDelay: 250,
+  captionsData: 'alt',
+});
