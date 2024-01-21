@@ -56,9 +56,6 @@ function restoreData(){
 
     form.elements.email.value = trimmedEmail;
     form.elements.message.value = trimmedMessage;
-
-    // form.elements.email.value = data.email || '';
-    // form.elements.message.value = data.message || '';
 };
 
 restoreData();
