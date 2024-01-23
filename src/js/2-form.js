@@ -3,34 +3,38 @@ const STORAGE_KEY = 'feedback-form-state';
 const form = document.querySelector('.feedback-form');
 const textarea = form.querySelector('textarea');
 
+let formData = {
+    email: '',
+    message: '',
+};
+
 form.addEventListener('input', () => {
-  const userEmail = form.elements.email.value.trim();
-  const userMessage = form.elements.message.value.trim();
+    const userEmail = form.elements.email.value.trim();
+    const userMessage = form.elements.message.value.trim();
 
-  const obj = {
-    email: userEmail,
-    message: userMessage,
-  };
+    formData = {
+        email: userEmail,
+        message: userMessage,
+    };
 
-  saveToLS(STORAGE_KEY, obj);
+    saveToLS(STORAGE_KEY, formData);
 });
 
 form.addEventListener('submit', e => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const userEmail = form.elements.email.value;
-  const userMessage = form.elements.message.value;
+    const userEmail = formData.email.trim(); 
+    const userMessage = formData.message.trim(); 
 
-  if (!userEmail || !userMessage) {
-    alert('Будь ласка, заповніть обидва елементи форми.');
-    return;
-  }
+    if (!userEmail || !userMessage) {
+        alert('Будь ласка, заповніть обидва елементи форми.');
+        return;
+    }
 
-  const data = loadFromLS(STORAGE_KEY) || {};
-  console.log(data);
+    console.log(formData);
 
-  localStorage.removeItem(STORAGE_KEY);
-  form.reset();
+    localStorage.removeItem(STORAGE_KEY);
+    form.reset();
 });
 
 function loadFromLS(key = 'empty') {
@@ -44,18 +48,20 @@ function loadFromLS(key = 'empty') {
 }
 
 function saveToLS(key, value) {
-  const jsonData = JSON.stringify(value);
-  localStorage.setItem(key, jsonData);
+    const jsonData = JSON.stringify(value);
+    localStorage.setItem(key, jsonData);
 }
 
 function restoreData() {
-  const data = loadFromLS(STORAGE_KEY) || {};
+    const data = loadFromLS(STORAGE_KEY) || {};
 
-  const trimmedEmail = data.email || '';
-  const trimmedMessage = data.message || '';
+    formData = {
+        email: data.email || '',
+        message: data.message || '',
+    };
 
-  form.elements.email.value = trimmedEmail;
-  form.elements.message.value = trimmedMessage;
+    form.elements.email.value = formData.email;
+    form.elements.message.value = formData.message;
 }
 
 restoreData();
